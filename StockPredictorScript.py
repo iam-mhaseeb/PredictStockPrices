@@ -32,10 +32,10 @@ def predict_prices(dates, prices, x):
 	svr_rbf.fit(dates, prices)
 
 
-	plt.scatter(dates, prices, color='black', lablel='Data')
-	plt.plot(dates, svr_rbf.predict(dates), color='red', lablel='RBF model')
-	plt.plot(dates, svr_lin.predict(dates), color='green', lablel='Linear model')
-	plt.plot(dates, svr_poly.predict(dates), color='blue', lablel='Polynomial model')
+	plt.scatter(dates, prices, color='black', label='Data')
+	plt.plot(dates, svr_rbf.predict(dates), color='red', label='RBF model')
+	plt.plot(dates, svr_lin.predict(dates), color='green', label='Linear model')
+	plt.plot(dates, svr_poly.predict(dates), color='blue', label='Polynomial model')
 	plt.xlabel('Date')
 	plt.ylabel('Price')
 	plt.title('Suppor Vector Regression')
