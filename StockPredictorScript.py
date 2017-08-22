@@ -2,6 +2,9 @@ import csv
 import numpy as np 
 from sklearn.svm import SVR
 import matplotlib.pyplot as plt
+import pandas as pd
+import os
+os.environ['FOR_IGNORE_EXCEPTIONS'] = '1'
 
 
 dates = []
@@ -15,12 +18,13 @@ def get_data(filename):
 		for row in csvFileReader:
 			dates.append(int(row[0].split('-')[0]))
 			prices.append(float(row[1]))
+
 	return
 def predict_prices(dates, prices, x):
 	dates = np.reshape(dates,(len(dates)))
+	dates = pd.DataFrame(dates)
 
-
-	svr_len = SVR(kernel= 'linear', C=1e3)
+	svr_lin = SVR(kernel= 'linear', C=1e3)
 	svr_poly = SVR(kernel= 'poly', C=1e3, degree = 2)
 	svr_rbf = SVR(kernel = 'rbf', C=1e3, gamma = 0.1)
 	svr_lin.fit(dates, prices)
@@ -28,7 +32,7 @@ def predict_prices(dates, prices, x):
 	svr_rbf.fit(dates, prices)
 
 
-	plt.scatter(dates, prices, color='black'. lablel='Data')
+	plt.scatter(dates, prices, color='black', lablel='Data')
 	plt.plot(dates, svr_rbf.predict(dates), color='red', lablel='RBF model')
 	plt.plot(dates, svr_lin.predict(dates), color='green', lablel='Linear model')
 	plt.plot(dates, svr_poly.predict(dates), color='blue', lablel='Polynomial model')
